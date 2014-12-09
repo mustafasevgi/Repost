@@ -10,4 +10,11 @@
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
 
+    <string-array name="navigation_list">
+        <item>Home Page</item>
+        <item>Liked Posts</item>
+        <item>Commented Posts</item>
+        <item>My Followers</item>
+    </string-array>
+
 </resources>

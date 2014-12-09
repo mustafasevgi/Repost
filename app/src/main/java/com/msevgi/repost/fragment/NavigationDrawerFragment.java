@@ -2,37 +2,48 @@ package com.msevgi.repost.fragment;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.msevgi.repost.R;
 import com.msevgi.repost.event.NavigationItemSelect;
 import com.msevgi.repost.provider.BusProvider;
 
+import butterknife.InjectView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
-public class NavigationDrawerFragment extends Fragment {
+
+public final class NavigationDrawerFragment extends BaseFragment {
 
     private ActionBarDrawerToggle drawerToggle;
 
     private DrawerLayout drawerLayout;
-    private ListView drawerListview;
+
+    @InjectView(R.id.listview_navigation)
+    protected ListView drawerListview;
+
     private View fragmentContainerView;
 
     private int currentSelectedPosition = 0;
+
+    @InjectView(R.id.circleimageview_profile)
+    protected CircleImageView imageViewProfile;
+
+    @InjectView(R.id.textview_name)
+    protected TextView textViewName;
 
     public NavigationDrawerFragment() {
     }
@@ -52,27 +63,17 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        drawerListview = (ListView) inflater.inflate(
-                R.layout.fragment_navigation_drawer, container, false);
-        drawerListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectItem(position);
-            }
-        });
-        drawerListview.setAdapter(new ArrayAdapter<String>(
-                getActivity().getApplicationContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3),
-                }));
-        drawerListview.setItemChecked(currentSelectedPosition, true);
-        return drawerListview;
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        String[] navigationItemArray = getActivity().getResources().getStringArray(R.array.navigation_list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, navigationItemArray);
+        drawerListview.setAdapter(adapter);
+    }
+
+    @NonNull
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_navigation_drawer;
     }
 
 
