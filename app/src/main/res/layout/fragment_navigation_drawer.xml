@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#cccc"
+              android:orientation="vertical"
+              tools:context=".NavigationDrawerFragment">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/circleimageview_profile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:gravity="center_horizontal"
+        android:src="@drawable/ic_launcher"
+        app:border_width="1dp"
+        app:border_color="#FF000000"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mustafa Sevgi"
+        android:gravity="center_horizontal"
+        android:textColor="@color/text_color"/>
+</LinearLayout>
