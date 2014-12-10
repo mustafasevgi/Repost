@@ -5,12 +5,20 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class AuthWebClient extends WebViewClient {
+import com.msevgi.repost.application.RepostApplication;
+import com.msevgi.repost.constant.ApplicationConstant;
+import com.msevgi.repost.event.GetTokenEvent;
+import com.msevgi.repost.provider.BusProvider;
+
+public class AuthWebViewClient extends WebViewClient {
+
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        if (url.startsWith("")) {
+        if (url.startsWith(ApplicationConstant.CALLBACKURL)) {
             System.out.println(url);
             String parts[] = url.split("=");
+//            RepostApplication.sharedPrefHelper.saveToken(parts[1]);
+//            BusProvider.getInstance().post(new GetTokenEvent());
             Log.d("shouldOverrideUrlLoading", "shouldOverrideUrlLoading token: " + parts[1]);
             return true;
         }

@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.msevgi.repost.R;
+import com.msevgi.repost.constant.ApplicationConstant;
 
 import butterknife.InjectView;
 
@@ -32,45 +33,45 @@ public final class FragmentHome extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        webViewRegister.setWebViewClient(new AuthWebViewClient());
+//        webViewRegister.setWebViewClient(new AuthWebViewClient());
         webViewRegister.getSettings().setJavaScriptEnabled(true);
         webViewRegister.loadUrl(authURLString);
     }
 
-    public class AuthWebViewClient extends WebViewClient {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (url.startsWith("")) {
-                System.out.println(url);
-                String parts[] = url.split("=");
-                Log.d("shouldOverrideUrlLoading", "shouldOverrideUrlLoading token: " + parts[1]);
-                return true;
-            }
-            return false;
-        }
-
-        @Override
-        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-            super.onReceivedError(view, errorCode, description, failingUrl);
-
-            Log.d("onReceiveError", "Page error: " + description);
-        }
-
-
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            super.onPageStarted(view, url, favicon);
-
-
-            Log.d("onPageStarted", "Loading URL: " + url);
-        }
-
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-            Log.d("onPageFinished", "Finished URL: " + url);
-
-        }
-    }
+//    public class AuthWebViewClient extends WebViewClient {
+//        @Override
+//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//            if (url.startsWith(ApplicationConstant.CALLBACKURL)) {
+//                System.out.println(url);
+//                String parts[] = url.split("=");
+//                Log.d("shouldOverrideUrlLoading", "shouldOverrideUrlLoading token: " + parts[1]);
+//                return true;
+//            }
+//            return false;
+//        }
+//
+//        @Override
+//        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+//            super.onReceivedError(view, errorCode, description, failingUrl);
+//
+//            Log.d("onReceiveError", "Page error: " + description);
+//        }
+//
+//
+//        @Override
+//        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+//            super.onPageStarted(view, url, favicon);
+//
+//
+//            Log.d("onPageStarted", "Loading URL: " + url);
+//        }
+//
+//
+//        @Override
+//        public void onPageFinished(WebView view, String url) {
+//            super.onPageFinished(view, url);
+//            Log.d("onPageFinished", "Finished URL: " + url);
+//
+//        }
+//    }
 }
