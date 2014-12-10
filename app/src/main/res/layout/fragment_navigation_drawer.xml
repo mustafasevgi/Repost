@@ -10,10 +10,11 @@
         android:id="@+id/circleimageview_profile"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
         android:src="@drawable/ic_launcher"
+        android:layout_marginTop="5dp"
         app:border_width="1dp"
-        app:border_color="#FF000000" />
+        app:border_color="#FF000000"/>
 
     <TextView
         android:id="@+id/textview_name"
@@ -21,6 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Mustafa Sevgi"
         android:gravity="center_horizontal"
+        android:padding="10dp"
         android:textColor="@color/text_color" />
 
     <ListView

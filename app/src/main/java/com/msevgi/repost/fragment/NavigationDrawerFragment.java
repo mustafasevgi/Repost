@@ -23,6 +23,7 @@ import com.msevgi.repost.event.NavigationItemSelect;
 import com.msevgi.repost.provider.BusProvider;
 
 import butterknife.InjectView;
+import butterknife.OnItemClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -108,6 +109,11 @@ public final class NavigationDrawerFragment extends BaseFragment {
 
 
         this.drawerLayout.setDrawerListener(drawerToggle);
+    }
+
+    @OnItemClick(R.id.listview_navigation)
+    void onItemSelected(int position) {
+        selectItem(position);
     }
 
     private void selectItem(int position) {
