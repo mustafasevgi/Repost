@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
 
     <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="40dp"
-        android:visibility="gone" />
+        android:id="@+id/progress_bar_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginLeft="150dp"
+        android:layout_marginRight="150dp"
+        android:visibility="gone"/>
 
     <WebView
         android:id="@+id/webview_register_dialog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp" />
+        android:layout_height="250dp"
+        android:layout_margin="10dp"/>
 
     <Button
-        android:id="@+id/button_cancel"
+        android:id="@+id/button_cancel_dialog"
+        android:layout_below="@+id/webview_register_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:textColor="@color/text_color"
-        android:text="@string/cancel" />
+        android:text="@string/cancel"/>
 
 </LinearLayout>

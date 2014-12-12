@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.msevgi.repost.constant.ApplicationConstant;
+import com.msevgi.repost.constant.SharedPrefConstants;
 
 
 public final class SharedPrefHelper {
@@ -17,24 +17,26 @@ public final class SharedPrefHelper {
 
     public void saveUserInfo(String userName, String fullName) {
         editor = sharedPreferences.edit();
-        editor.putString(ApplicationConstant.USERNAME, userName);
-        editor.putString(ApplicationConstant.FULL_NAME, fullName);
+        editor.putString(SharedPrefConstants.USERNAME, userName);
+        editor.putString(SharedPrefConstants.FULL_NAME, fullName);
         editor.commit();
     }
-    public void saveToken(String token){
-        editor=sharedPreferences.edit();
-        editor.putString(ApplicationConstant.TOKEN,token);
+
+    public void saveToken(String token) {
+        editor = sharedPreferences.edit();
+        editor.putString(SharedPrefConstants.TOKEN, token);
         editor.commit();
     }
+
     public String getUsername() {
-        return sharedPreferences.getString(ApplicationConstant.USERNAME, "");
+        return sharedPreferences.getString(SharedPrefConstants.USERNAME, "");
     }
 
     public String getFullName() {
-        return sharedPreferences.getString(ApplicationConstant.FULL_NAME, "");
+        return sharedPreferences.getString(SharedPrefConstants.FULL_NAME, "");
     }
 
     public String getToken() {
-        return sharedPreferences.getString(ApplicationConstant.TOKEN, "");
+        return sharedPreferences.getString(SharedPrefConstants.TOKEN, "");
     }
 }
