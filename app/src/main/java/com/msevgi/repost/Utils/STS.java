@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class Util {
+public class STS {
     public static String streamToString(InputStream is) throws IOException {
         String str = "";
         if (is != null) {

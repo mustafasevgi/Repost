@@ -1,9 +1,9 @@
 package com.msevgi.repost.activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -14,26 +14,33 @@ import com.msevgi.repost.AuthWebViewClient;
 import com.msevgi.repost.R;
 import com.msevgi.repost.Task.GetUserInfoTask;
 import com.msevgi.repost.application.RepostApplication;
-import com.msevgi.repost.event.GetTokenEvent;
+import com.msevgi.repost.constant.ApplicationConstants;
+import com.msevgi.repost.event.GetCodeEvent;
+import com.msevgi.repost.event.GetMyProfileEvent;
 import com.squareup.otto.Subscribe;
 
 import butterknife.InjectView;
 
 public final class LoginActivity extends BaseActionBarActivity implements View.OnClickListener {
 
-    private String authURLString = "https://instagram.com/oauth/authorize/?client_id=7ea2e2925f6244a9a348e1dfe99d00b3&redirect_uri=instagram://connect&response_type=code&display=touch&scope=basic+likes+comments+relationships";
-    private Dialog dialog;
     @InjectView(R.id.button_login)
     protected Button buttonLogin;
+
+    @InjectView(R.id.webview_registiration)
+    protected WebView webViewRegistiration;
+
+    @InjectView(R.id.progressbar)
+    protected ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String token = RepostApplication.sharedPrefHelper.getToken();
-//        if (!TextUtils.isEmpty(token)) {
-//            leadNextPage();
-//        }
+        String userId = RepostApplication.sharedPrefHelper.getUserId();
+        if (!TextUtils.isEmpty(userId)) {
+            leadNextPage();
+        }
         buttonLogin.setOnClickListener(this);
     }
 
@@ -44,13 +51,17 @@ public final class LoginActivity extends BaseActionBarActivity implements View.O
     }
 
     @Subscribe
-    public void passNextPage(GetTokenEvent getTokenEvent) {
-        RepostApplication.sharedPrefHelper.saveToken(getTokenEvent.getToken());
-//        getAccessToken(getTokenEvent.getToken());
-        new GetUserInfoTask(getTokenEvent.getToken()).execute();
-        if (dialog != null)
-            dialog.dismiss();
-//        leadNextPage();
+    public void getCode(GetCodeEvent getCodeEvent) {
+        RepostApplication.sharedPrefHelper.saveToken(getCodeEvent.getToken());
+        new GetUserInfoTask(getCodeEvent.getToken()).execute();
+    }
+
+    @Subscribe
+    public void getUserInfo(GetMyProfileEvent getMyProfileEvent) {
+        RepostApplication.sharedPrefHelper.saveUserInfo(
+                getMyProfileEvent.getBean(),
+                getMyProfileEvent.getAccess_token());
+        leadNextPage();
     }
 
     private void leadNextPage() {
@@ -62,15 +73,12 @@ public final class LoginActivity extends BaseActionBarActivity implements View.O
 
     @Override
     public void onClick(View v) {
+        buttonLogin.setClickable(false);
+        progressBar.setVisibility(View.VISIBLE);
 
-        prepareDialog();
-
-        WebView webViewRegister = (WebView) dialog.findViewById(R.id.webview_register_dialog);
-        Button buttonCancel = (Button) dialog.findViewById(R.id.button_cancel_dialog);
-        final ProgressBar progressBar = (ProgressBar) dialog.findViewById(R.id.progress_bar_dialog);
-
-        webViewRegister.setWebViewClient(new AuthWebViewClient());
-        webViewRegister.setWebChromeClient(new WebChromeClient() {
+        webViewRegistiration.setVisibility(View.VISIBLE);
+        webViewRegistiration.setWebViewClient(new AuthWebViewClient());
+        webViewRegistiration.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
                 if (progress < 100 && progressBar.getVisibility() == ProgressBar.GONE) {
                     progressBar.setVisibility(ProgressBar.VISIBLE);
@@ -81,24 +89,9 @@ public final class LoginActivity extends BaseActionBarActivity implements View.O
                 }
             }
         });
-        webViewRegister.getSettings().setJavaScriptEnabled(true);
-        webViewRegister.setInitialScale(100);
-        webViewRegister.loadUrl(authURLString);
 
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                finish();
-            }
-        });
-        dialog.show();
-    }
-
-    private void prepareDialog() {
-        dialog = new Dialog(LoginActivity.this);
-        dialog.setContentView(R.layout.instagram_register_dialog);
-        dialog.setTitle(getResources().getString(R.string.login));
-        dialog.setCancelable(false);
+        webViewRegistiration.getSettings().setJavaScriptEnabled(true);
+        webViewRegistiration.setInitialScale(100);
+        webViewRegistiration.loadUrl(ApplicationConstants.getAuthurl());
     }
 }

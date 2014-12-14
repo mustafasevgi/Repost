@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.msevgi.repost.bean.response.UserResponseBean;
 import com.msevgi.repost.constant.SharedPrefConstants;
 
 
@@ -15,10 +16,16 @@ public final class SharedPrefHelper {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public void saveUserInfo(String userName, String fullName) {
+    public void saveUserInfo(UserResponseBean bean,
+                             String accessToken) {
         editor = sharedPreferences.edit();
-        editor.putString(SharedPrefConstants.USERNAME, userName);
-        editor.putString(SharedPrefConstants.FULL_NAME, fullName);
+        editor.putString(SharedPrefConstants.USERNAME, bean.getUsername());
+        editor.putString(SharedPrefConstants.FULL_NAME, bean.getFull_name());
+        editor.putString(SharedPrefConstants.PROFILE_IMAGE_LINK, bean.getProfile_picture());
+        editor.putString(SharedPrefConstants.ACCESS_TOKEN, accessToken);
+        editor.putString(SharedPrefConstants.USER_ID, bean.getId());
+        editor.putString(SharedPrefConstants.BIO, bean.getBio());
+        editor.putString(SharedPrefConstants.WEBSITE, bean.getWebsite());
         editor.commit();
     }
 
@@ -34,6 +41,18 @@ public final class SharedPrefHelper {
 
     public String getFullName() {
         return sharedPreferences.getString(SharedPrefConstants.FULL_NAME, "");
+    }
+
+    public String getProfileImageLink() {
+        return sharedPreferences.getString(SharedPrefConstants.PROFILE_IMAGE_LINK, "");
+    }
+
+    public String getUserId() {
+        return sharedPreferences.getString(SharedPrefConstants.USER_ID, "");
+    }
+
+    public String getAccesToken() {
+        return sharedPreferences.getString(SharedPrefConstants.ACCESS_TOKEN, "");
     }
 
     public String getToken() {

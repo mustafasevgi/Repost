@@ -2,9 +2,10 @@
 <resources>
 
     <string name="app_name">Repost</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_home">Main Page</string>
+    <string name="title_liked">Liked Posts</string>
+    <string name="title_commented">Commented Posts</string>
+    <string name="title_friends">My Friends</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
@@ -13,6 +14,7 @@
     <string name="login">Login</string>
     <string name="login_title">Login Page</string>
     <string name="cancel">Cancel</string>
+    <string name="load_more">Load More</string>
 
     <string-array name="navigation_list">
         <item>Home Page</item>

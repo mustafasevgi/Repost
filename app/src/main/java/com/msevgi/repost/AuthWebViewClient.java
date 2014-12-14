@@ -6,7 +6,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.msevgi.repost.constant.ApplicationConstants;
-import com.msevgi.repost.event.GetTokenEvent;
+import com.msevgi.repost.event.GetCodeEvent;
 import com.msevgi.repost.provider.BusProvider;
 
 public class AuthWebViewClient extends WebViewClient {
@@ -14,10 +14,8 @@ public class AuthWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         if (url.startsWith(ApplicationConstants.CALLBACKURL)) {
-            System.out.println(url);
             String parts[] = url.split("=");
-            BusProvider.getInstance().post(new GetTokenEvent(parts[1]));
-            Log.d("shouldOverrideUrlLoading", "shouldOverrideUrlLoading token: " + parts[1]);
+            BusProvider.getInstance().post(new GetCodeEvent(parts[1]));
             return true;
         }
         return false;

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.msevgi.repost.R;
 import com.msevgi.repost.event.NavigationItemSelect;
+import com.msevgi.repost.fragment.FragmentFriends;
 import com.msevgi.repost.fragment.FragmentHome;
 import com.msevgi.repost.fragment.NavigationDrawerFragment;
 import com.squareup.otto.Subscribe;
@@ -50,10 +51,36 @@ public final class MainActivity extends BaseActionBarActivity {
 
     @Subscribe
     public void onNavigationDrawerItemSelected(NavigationItemSelect itemSelect) {
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, new FragmentHome())
-                .commit();
+        switch (itemSelect.getPosition()) {
+            case 0:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, new FragmentHome())
+                        .commit();
+                setTitle(getString(R.string.title_home));
+                break;
+            case 1:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, new FragmentHome())
+                        .commit();
+                setTitle(getString(R.string.title_liked));
+                break;
+            case 2:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, new FragmentHome())
+                        .commit();
+                setTitle(getString(R.string.title_commented));
+                break;
+            case 3:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, new FragmentFriends())
+                        .commit();
+                toolbar.setTitle(getString(R.string.title_friends));
+                break;
+            default:
+                break;
+        }
     }
 
     public void restoreActionBar() {
