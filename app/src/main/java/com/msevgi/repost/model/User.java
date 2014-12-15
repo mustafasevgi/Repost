@@ -1,14 +1,15 @@
-package com.msevgi.repost.bean.response;
+package com.msevgi.repost.model;
 
-public class UserResponseBean {
+public class User {
     private String username;
     private String bio;
     private String website;
     private String profile_picture;
     private String full_name;
     private String id;
+    private int type;
 
-    public UserResponseBean(String username, String bio, String website, String profile_picture, String full_name, String id) {
+    public User(String username, String bio, String website, String profile_picture, String full_name, String id) {
         this.username = username;
         this.bio = bio;
         this.website = website;
@@ -75,6 +76,15 @@ public class UserResponseBean {
                 ", profile_picture='" + profile_picture + '\'' +
                 ", full_name='" + full_name + '\'' +
                 ", id='" + id + '\'' +
+                ", type='" + type + '\'' +
                 '}';
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

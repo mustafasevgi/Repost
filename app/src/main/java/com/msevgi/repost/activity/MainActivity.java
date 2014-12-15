@@ -24,7 +24,7 @@ public final class MainActivity extends BaseActionBarActivity {
     private NavigationDrawerFragment navigationDrawerFragment;
 
 
-    private CharSequence title;
+    public static CharSequence title;
 
     @InjectView(R.id.toolbar_actionbar)
     protected Toolbar toolbar;
@@ -58,25 +58,25 @@ public final class MainActivity extends BaseActionBarActivity {
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, new FragmentHome())
                         .commit();
-                setTitle(getString(R.string.title_home));
+                title = getString(R.string.title_home);
                 break;
             case 1:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, new FragmentHome())
                         .commit();
-                setTitle(getString(R.string.title_liked));
+                title = getString(R.string.title_liked);
                 break;
             case 2:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, new FragmentHome())
                         .commit();
-                setTitle(getString(R.string.title_commented));
+                title = getString(R.string.title_commented);
                 break;
             case 3:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, new FragmentFriends())
                         .commit();
-                toolbar.setTitle(getString(R.string.title_friends));
+                title = getString(R.string.title_friends);
                 break;
             default:
                 break;

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.msevgi.repost.bean.response.UserResponseBean;
+import com.msevgi.repost.model.User;
 import com.msevgi.repost.constant.SharedPrefConstants;
 
 
@@ -16,7 +16,7 @@ public final class SharedPrefHelper {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public void saveUserInfo(UserResponseBean bean,
+    public void saveUserInfo(User bean,
                              String accessToken) {
         editor = sharedPreferences.edit();
         editor.putString(SharedPrefConstants.USERNAME, bean.getUsername());

@@ -1,15 +1,15 @@
 package com.msevgi.repost.event;
 
 
-import com.msevgi.repost.bean.response.UserResponseBean;
+import com.msevgi.repost.model.User;
 
 public class GetMyProfileEvent {
 
     private String access_token;
-    private UserResponseBean bean;
+    private User bean;
 
 
-    public GetMyProfileEvent(String access_token, UserResponseBean bean) {
+    public GetMyProfileEvent(String access_token, User bean) {
         this.access_token = access_token;
         this.bean = bean;
     }
@@ -22,11 +22,11 @@ public class GetMyProfileEvent {
         this.access_token = access_token;
     }
 
-    public UserResponseBean getBean() {
+    public User getBean() {
         return bean;
     }
 
-    public void setBean(UserResponseBean bean) {
+    public void setBean(User bean) {
         this.bean = bean;
     }
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -12,7 +13,7 @@ import android.widget.ProgressBar;
 
 import com.msevgi.repost.AuthWebViewClient;
 import com.msevgi.repost.R;
-import com.msevgi.repost.Task.GetUserInfoTask;
+import com.msevgi.repost.task.GetUserInfoTask;
 import com.msevgi.repost.application.RepostApplication;
 import com.msevgi.repost.constant.ApplicationConstants;
 import com.msevgi.repost.event.GetCodeEvent;
@@ -39,6 +40,7 @@ public final class LoginActivity extends BaseActionBarActivity implements View.O
 
         String userId = RepostApplication.sharedPrefHelper.getUserId();
         if (!TextUtils.isEmpty(userId)) {
+            Log.i("","access_token: "+RepostApplication.sharedPrefHelper.getAccesToken());
             leadNextPage();
         }
         buttonLogin.setOnClickListener(this);

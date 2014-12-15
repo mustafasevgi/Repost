@@ -36,12 +36,11 @@
             android:textColor="@android:color/black"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textview_isfollow"
+    <Button
+        android:id="@+id/button_isfollow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:text="Takip Ediliyor"
         android:layout_gravity="center"
         android:padding="10dp"
         android:background="@android:color/holo_green_dark"/>

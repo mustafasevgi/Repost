@@ -6,20 +6,28 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.msevgi.repost.R;
-import com.msevgi.repost.Task.GetFollowersTask;
 import com.msevgi.repost.adapter.FriendListAdapter;
-import com.msevgi.repost.bean.response.UserResponseBean;
-import com.msevgi.repost.event.GetUserListEvent;
+import com.msevgi.repost.constant.ApplicationConstants;
+import com.msevgi.repost.event.GetFollowedByListEvent;
+import com.msevgi.repost.event.GetFollowerListEvent;
+import com.msevgi.repost.model.User;
+import com.msevgi.repost.task.GetFollowedByTask;
+import com.msevgi.repost.task.GetFollowersTask;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.InjectView;
 
-public final class FragmentFriends extends BaseFragment {
+public final class FragmentFriends extends BaseFragment implements View.OnClickListener {
+
+    private HashMap<String, User> friendMap;
+    private ArrayList<User> list;
 
     @InjectView(R.id.listview_friends)
     protected ListView listViewFriends;
@@ -30,28 +38,48 @@ public final class FragmentFriends extends BaseFragment {
         return R.layout.fragment_friends;
     }
 
-    private ArrayList<UserResponseBean> friendList;
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("alo");
-        new GetFollowersTask("https://api.instagram" +
-                ".com/v1/users/309977638/follows?access_token=309977638.7ea2e29" +
-                ".5839ab106efd414b982f0f76fa701d7b").execute();
-        friendList = new ArrayList<>();
-
-        FriendListAdapter adapter = new FriendListAdapter(getActivity(), 0, friendList);
+        new GetFollowersTask(ApplicationConstants.getFollowersUrl()).execute(ApplicationConstants.getFollowersUrl());
+//        new GetRelationShipTask(ApplicationConstants.getRelationShipUrl()).execute();
+        list = new ArrayList<>();
+        FriendListAdapter adapter = new FriendListAdapter(getActivity(), 0, list);
         adapter.setNotifyOnChange(true);
         listViewFriends.setAdapter(adapter);
     }
 
     @Subscribe
-    public void getUserList(GetUserListEvent getUserListEvent) {
-        friendList.addAll(getUserListEvent.getFriendList());
+    public void getFollowerList(GetFollowerListEvent getFollowerListEvent) {
+        friendMap = getFollowerListEvent.getFollowerList();
+        new GetFollowedByTask(ApplicationConstants.getFollowedByUrl()).execute();
+    }
+
+    @Subscribe
+    public void getFollowedByList(GetFollowedByListEvent getFollowedByListEvent) {
+        for (int i = 0; i < getFollowedByListEvent.getFollowedByList().size(); i++) {
+            String id = getFollowedByListEvent.getFollowedByList().get(i).getId();
+            if (friendMap.containsKey(id)) {
+                friendMap.get(id).setType(2);
+            } else
+                friendMap.put(id, getFollowedByListEvent.getFollowedByList().get(i));
+        }
+
+        list.addAll(friendMap.values());
+        addFooter();
+    }
+
+    private void addFooter() {
         View footerView = ((LayoutInflater) getActivity().getApplicationContext().getSystemService(Context
                 .LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.listview_footer, null, false);
+        Button buttonLoadMore = (Button) footerView.findViewById(R.id.button_load_more);
+        buttonLoadMore.setOnClickListener(this);
         listViewFriends.addFooterView(footerView);
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

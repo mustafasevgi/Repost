@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.msevgi.repost.R;
-import com.msevgi.repost.Task.GetFollowersTask;
 
 
 public final class FragmentHome extends BaseFragment {
