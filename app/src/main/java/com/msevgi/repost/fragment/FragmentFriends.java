@@ -28,7 +28,7 @@ public final class FragmentFriends extends BaseFragment implements View.OnClickL
 
     private HashMap<String, User> friendMap;
     private ArrayList<User> list;
-
+    private FriendListAdapter adapter;
     @InjectView(R.id.listview_friends)
     protected ListView listViewFriends;
 
@@ -41,10 +41,9 @@ public final class FragmentFriends extends BaseFragment implements View.OnClickL
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        new GetFollowersTask(ApplicationConstants.getFollowersUrl()).execute(ApplicationConstants.getFollowersUrl());
-//        new GetRelationShipTask(ApplicationConstants.getRelationShipUrl()).execute();
+        new GetFollowersTask(ApplicationConstants.getFollowersUrl()).execute();
         list = new ArrayList<>();
-        FriendListAdapter adapter = new FriendListAdapter(getActivity(), 0, list);
+        adapter = new FriendListAdapter(getActivity(), 0, list);
         adapter.setNotifyOnChange(true);
         listViewFriends.setAdapter(adapter);
     }
@@ -66,7 +65,7 @@ public final class FragmentFriends extends BaseFragment implements View.OnClickL
         }
 
         list.addAll(friendMap.values());
-        addFooter();
+        adapter.notifyDataSetChanged();
     }
 
     private void addFooter() {
