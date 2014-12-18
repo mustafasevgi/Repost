@@ -13,6 +13,7 @@ import com.msevgi.repost.R;
 import com.msevgi.repost.event.NavigationItemSelect;
 import com.msevgi.repost.fragment.FragmentFriends;
 import com.msevgi.repost.fragment.FragmentHome;
+import com.msevgi.repost.fragment.FragmentLikedPosts;
 import com.msevgi.repost.fragment.NavigationDrawerFragment;
 import com.squareup.otto.Subscribe;
 
@@ -62,7 +63,7 @@ public final class MainActivity extends BaseActionBarActivity {
                 break;
             case 1:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, new FragmentHome())
+                        .replace(R.id.container, new FragmentLikedPosts())
                         .commit();
                 title = getString(R.string.title_liked);
                 break;
