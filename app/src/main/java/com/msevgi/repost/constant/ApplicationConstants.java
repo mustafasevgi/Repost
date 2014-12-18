@@ -40,6 +40,15 @@ public class ApplicationConstants {
         return stringBuilder.toString();
     }
 
+    public static String getRecentPosts() {
+        //https://api.instagram.com/v1/users/3/media/recent/?access_token=ACCESS-TOKEN
+        StringBuilder builder = new StringBuilder();
+        String accessToken = RepostApplication.sharedPrefHelper.getAccesToken();
+        String userId = RepostApplication.sharedPrefHelper.getUserId();
+        builder.append(USER_DETAIL).append(userId).append("/media/recent?access_token=").append(accessToken);
+        return builder.toString();
+    }
+
     public static String getLikedPostsUrl() {
         StringBuilder builder = new StringBuilder();
         String accessToken = RepostApplication.sharedPrefHelper.getAccesToken();
